@@ -26,4 +26,14 @@ class User extends \TCG\Voyager\Models\User
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function profiles()
+    {
+        return $this->hasOne(StudentProfile::class);
+    }
+
+    public function isRole()
+    {
+        return $this->role->name;
+    }
 }

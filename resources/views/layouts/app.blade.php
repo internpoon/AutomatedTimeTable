@@ -12,6 +12,7 @@
 
     <!-- Styles -->
 {{--    {!! HTML::style(mix('css/app.css')) !!}--}}
+    {!! HTML::style('css/bootstrap.min.css') !!}
     {!! HTML::style('css/app.css') !!}
 
 
@@ -78,8 +79,18 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-{{--    {!! HTML::script('css/app.css') !!}--}}
-
+    {!! HTML::script('js/jquery-3.3.0.js') !!}
+    {!! HTML::script('js/bootstrap.min.js') !!}
+    {!! HTML::script('js/app.js') !!}
+<script>
+    $(document).ready(function () {
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $(this).toggleClass('active');
+            });
+        });
+    });
+</script>
 </body>
 </html>

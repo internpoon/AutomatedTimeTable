@@ -14,7 +14,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'AutomatedTimeTable\Events\Event' => [
-            'AutomatedTimeTable\Listeners\EventListener',
+            'AutomatedTimeTable\Listeners\CreateStudentProfile'
         ],
     ];
 
