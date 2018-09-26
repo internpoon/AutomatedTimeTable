@@ -13,11 +13,15 @@
     <!-- Styles -->
     {{--    {!! HTML::style(mix('css/app.css')) !!}--}}
     {!! HTML::style('css/bootstrap.min.css') !!}
+    {!! HTML::style('css/toastr.css') !!}
     {!! HTML::style('css/app.css') !!}
 
 
 </head>
 <body>
+<div id="app">
+
+
 <div class="wrapper">
     <!-- Sidebar Holder -->
     <nav id="sidebar">
@@ -40,8 +44,8 @@
             </li>
             <li>
                 <a href="#">
-                    <i class="glyphicon glyphicon-briefcase"></i>
-                    About
+                    <i class="glyphicon glyphicon-user"></i>
+                    Profile
                 </a>
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
                     <i class="glyphicon glyphicon-duplicate"></i>
@@ -54,21 +58,9 @@
                 </ul>
             </li>
             <li>
-                <a href="#">
-                    <i class="glyphicon glyphicon-link"></i>
-                    Portfolio
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="glyphicon glyphicon-paperclip"></i>
-                    FAQ
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="glyphicon glyphicon-send"></i>
-                    Contact
+                <a href="{{action('SettingController@view')}}">
+                    <i class="glyphicon glyphicon-wrench"></i>
+                    Setting
                 </a>
             </li>
             <li>
@@ -87,31 +79,28 @@
 
     <!-- Page Content Holder -->
     <div id="content">
-
         <nav class="navbar navbar-default">
             <div class="container-fluid">
 
                 <div class="navbar-header">
                     <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
                         <i class="glyphicon glyphicon-align-left"></i>
-                        <span>Toggle Sidebar</span>
                     </button>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Page</a></li>
-                        <li><a href="#">Page</a></li>
-                        <li><a href="#">Page</a></li>
-                        <li><a href="#">Page</a></li>
-                    </ul>
+                    <p class="nav navbar-nav navbar-right" style="margin-top: 10px; font-size: 20px">Setting</p>
                 </div>
             </div>
         </nav>
 
-
-
+        <nav class="navbar">
+            <div class="container-fluid">
+                @yield('content')
+            </div>
+        </nav>
     </div>
+</div>
 </div>
 
 <style>
@@ -142,7 +131,7 @@
         background: #fff;
         border: none;
         border-radius: 0;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
         box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     }
 
@@ -372,17 +361,17 @@
 <!-- Scripts -->
 {!! HTML::script('js/jquery-3.3.0.js') !!}
 {!! HTML::script('js/bootstrap.min.js') !!}
+{!! HTML::script('js/toastr.min.js') !!}
 {!! HTML::script('js/app.js') !!}
 <script>
     $(document).ready(function () {
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-                $(this).toggleClass('active');
-            });
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+            $(this).toggleClass('active');
         });
     });
 </script>
+@yield('custom_js')
 </body>
 
 </html>
