@@ -11,13 +11,12 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 Route::get('/setting', 'SettingController@view');
-Route::POST('/changePassword', 'SettingController@changePassword');
+Route::post('/changePassword', 'SettingController@changePassword');
 
 
 Route::group(['prefix' => 'admin'], function () {

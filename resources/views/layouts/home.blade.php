@@ -11,11 +11,7 @@
     <title>Automated Time Table</title>
 
     <!-- Styles -->
-    {{--    {!! HTML::style(mix('css/app.css')) !!}--}}
-    {!! HTML::style('css/bootstrap.min.css') !!}
-    {!! HTML::style('css/toastr.css') !!}
-    {!! HTML::style('css/app.css') !!}
-
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 </head>
 <body>

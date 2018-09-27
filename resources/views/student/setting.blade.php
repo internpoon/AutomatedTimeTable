@@ -9,20 +9,20 @@
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <input class="form-control" type="text" placeholder="{{$user->email}}" readonly>
+            <input class="form-control" type="text" name="email" placeholder="{{$user->email}}" readonly>
             <small id="emailHelp" class="form-text text-muted">This field is cannot be modified.</small>
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Current Password</label>
-            <input type="password" class="form-control" id="currentPassword" placeholder="Current Password">
+            <input type="password" class="form-control" name="currentPassword" id="currentPassword" placeholder="Current Password">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">New Password</label>
-            <input type="password" class="form-control" id="newPassword" placeholder="New Password">
+            <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="New Password">
         </div>
         <div class="form-group" id="pw">
             <label for="confirmPassword">Confirm Password</label>
-            <input type="password" class="form-control has-error" id="confirmPassword" placeholder="Confirm Password">
+            <input type="password" class="form-control has-error" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
             <small id="pwHelp" class="form-text text-muted" hidden style="color: #a94442;">Password not match !</small>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
