@@ -17,8 +17,6 @@ class SettingController extends Controller
 
     public function changePassword(Request $request)
     {
-        dd($request->input('fName'));
-        dd(Hash::check($request->input('currentPassword'), Auth::user()->password));
         if (!(Hash::check($request->get('currentPassword'), Auth::user()->password))) {
             // The passwords matches
             return redirect()->back()->with("error","Your current password does not matches with the password you provided. Please try again.");
