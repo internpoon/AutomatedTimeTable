@@ -18,6 +18,8 @@ Route::get('/', 'HomeController@index');
 Route::get('/setting', 'SettingController@view');
 Route::post('/changePassword', 'SettingController@changePassword');
 
+Route::get('api/settings', 'SettingController@get');
+
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

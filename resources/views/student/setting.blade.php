@@ -1,6 +1,8 @@
 @extends('layouts.home')
 
 @section('content')
+    <example-component></example-component>
+    <hr>
     <form method="POST" action="{!! action('SettingController@changePassword') !!}">
         {{ csrf_field() }}
         <div class="form-group">

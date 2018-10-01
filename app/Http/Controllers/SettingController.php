@@ -39,4 +39,10 @@ class SettingController extends Controller
         return redirect()->back()->with("success","Password changed successfully !");
     }
 
+    public function get()
+    {
+        $user = Auth::user();
+        return $user;
+    }
+
 }
