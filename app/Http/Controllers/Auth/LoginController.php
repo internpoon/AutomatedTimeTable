@@ -4,6 +4,8 @@ namespace AutomatedTimeTable\Http\Controllers\Auth;
 
 use AutomatedTimeTable\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use TCG\Voyager\Voyager;
 
 class LoginController extends Controller
 {
@@ -20,12 +22,22 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->isRole('admin') == 'admin') {
+            return redirect('/admin');
+        }
+        else {
+            return \Redirect::action('HomeController@index');
+        }
+    }
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+//    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.

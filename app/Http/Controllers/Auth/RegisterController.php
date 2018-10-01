@@ -2,6 +2,7 @@
 
 namespace AutomatedTimeTable\Http\Controllers\Auth;
 
+use AutomatedTimeTable\Events\Event;
 use AutomatedTimeTable\User;
 use AutomatedTimeTable\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -62,10 +63,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        event(new Event($user));
+
+        return $user;
     }
 }
