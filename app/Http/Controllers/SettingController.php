@@ -3,6 +3,9 @@
 namespace AutomatedTimeTable\Http\Controllers;
 
 use AutomatedTimeTable\Http\Controllers\Controller;
+use AutomatedTimeTable\Session;
+use AutomatedTimeTable\Subject;
+use AutomatedTimeTable\User;
 use Illuminate\Http\Request;
 use Auth;
 use Hash;
@@ -53,6 +56,18 @@ class SettingController extends Controller
     {
         $user = Auth::user();
         return $user;
+    }
+
+    public function subjects()
+    {
+        $subjects = Subject::all();
+        return $subjects;
+    }
+
+    public function getSession($id)
+    {
+        $session = Session::where('subject_id', $id)->get();
+        return $session;
     }
 
 }
