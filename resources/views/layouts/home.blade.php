@@ -34,8 +34,6 @@
                 </a>
                 <ul class="collapse list-unstyled" id="homeSubmenu">
                     <li><a href="#">Home 1</a></li>
-                    <li><a href="#">Home 2</a></li>
-                    <li><a href="#">Home 3</a></li>
                 </ul>
             </li>
             <li>
@@ -44,17 +42,17 @@
                     Profile
                 </a>
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
-                    <i class="glyphicon glyphicon-duplicate"></i>
-                    Pages
+                    <i class="glyphicon glyphicon-book"></i>
+                    Subjects
                 </a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li><a href="#">Page 1</a></li>
-                    <li><a href="#">Page 2</a></li>
-                    <li><a href="#">Page 3</a></li>
+                    <li><a href="{{route('student.subjects')}}">Subjects List</a></li>
+                    <li><a href="#">Enroll Subjects</a></li>
+                    <li><a href="#">View Timetable</a></li>
                 </ul>
             </li>
             <li>
-                <a href="{{action('SettingController@view')}}">
+                <a href="{{route('student.setting')}}">
                     <i class="glyphicon glyphicon-wrench"></i>
                     Setting
                 </a>

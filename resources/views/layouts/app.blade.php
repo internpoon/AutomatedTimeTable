@@ -12,8 +12,9 @@
 
     <!-- Styles -->
 {{--    {!! HTML::style(mix('css/app.css')) !!}--}}
-    {!! HTML::style('css/bootstrap.min.css') !!}
-    {!! HTML::style('css/app.css') !!}
+    {{--{!! HTML::style('css/bootstrap.min.css') !!}--}}
+    {{--{!! HTML::style('css/app.css') !!}--}}
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
 </head>
@@ -81,6 +82,7 @@
     <!-- Scripts -->
     {!! HTML::script('js/jquery-3.3.0.js') !!}
     {!! HTML::script('js/bootstrap.min.js') !!}
+    {!! HTML::script('js/toastr.min.js') !!}
     {!! HTML::script('js/app.js') !!}
 <script>
     $(document).ready(function () {

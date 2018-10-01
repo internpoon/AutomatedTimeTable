@@ -14,11 +14,18 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
-Route::get('/setting', 'SettingController@view');
-Route::post('/changePassword', 'SettingController@changePassword');
+// Student
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('/', 'HomeController@index');
+    Route::get('/setting', 'SettingController@view')->name('student.setting');
+    Route::get('/subjectsList', 'SubjectController@view')->name('student.subjects');
+    Route::get('/subjectDetails/{id}', 'SubjectController@subjectDetail')->name('student.subjectDetails');
+    Route::post('/changePassword', 'SettingController@changePassword');
+});
 
 
+// Admin
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
