@@ -47,7 +47,7 @@
                 </a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
                     <li><a href="{{route('student.subjects')}}">Subjects List</a></li>
-                    <li><a href="#">Enroll Subjects</a></li>
+                    <li><a href="{{route('student.subjectEnroll')}}">Enroll Subjects</a></li>
                     <li><a href="#">View Timetable</a></li>
                 </ul>
             </li>

@@ -22,6 +22,8 @@
         "@fortawesome/fontawesome-free": "^5.3.1",
         "eslint": "^4.19.1",
         "select2": "^4.0.6-rc.1",
-        "toastr": "^2.1.4"
+        "toastr": "^2.1.4",
+        "vue-moment": "^4.0.0",
+        "vue-select": "^2.5.1"
     }
 }
