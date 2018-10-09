@@ -282,7 +282,6 @@ class SessionController extends VoyagerBaseController
                             'alert-type' => 'error',
                         ]);
                 }
-
             }
         }
 
@@ -405,32 +404,44 @@ class SessionController extends VoyagerBaseController
             ->get();
 
         if ($existVenues->count() > 0) {
+            $message = 'Location has been used by another session. Please choose another location';
             foreach ($existVenues as $existVenue) {
+                $startTime = date('H:i', strtotime($existVenue->start_time));
+                $endTime =  date('H:i', strtotime($existVenue->end_time));
+
                 //Start Time between Exist venue duration is not allowed
-                if ($request->start_time >= date('H:i', strtotime($existVenue->start_time)) && $request->start_time < date('H:i', strtotime($existVenue->end_time))) {
+                if ($request->start_time >= $startTime && $request->start_time < $endTime) {
+                    if ($request->lecturer_id == $existVenue->lecturer_id) {
+                        $message = 'Lecturer is lecturing another session at the selected time, please choose another lecturer';
+                    }
                     return redirect()->back()
                         ->with([
-                            'message'    => 'Location has been used by another session. Please choose another location',
+                            'message'    => $message,
                             'alert-type' => 'error',
                         ]);
                 }
                 //End time between exist venue duration is not allowed
-                if ($request->end_time > date('H:i', strtotime($existVenue->start_time)) && $request->end_time < date('H:i', strtotime($existVenue->end_time))) {
+                else if ($request->end_time > $startTime && $request->end_time < $endTime) {
+                    if ($request->lecturer_id == $existVenue->lecturer_id) {
+                        $message = 'Lecturer is lecturing another session at the selected time, please choose another lecturer';
+                    }
                     return redirect()->back()
                         ->with([
-                            'message'    => 'Location has been used by another session. Please choose another location',
+                            'message'    => $message,
                             'alert-type' => 'error',
                         ]);
                 }
                 //Start time cannot before any session start time and end time after any session end time
-                if ($request->start_time < date('H:i', strtotime($existVenue->start_time)) && $request->end_time > date('H:i', strtotime($existVenue->end_time))) {
+                else if ($request->start_time < $startTime && $request->end_time > $endTime) {
+                    if ($request->lecturer_id == $existVenue->lecturer_id) {
+                        $message = 'Lecturer is lecturing another session at the selected time, please choose another lecturer';
+                    }
                     return redirect()->back()
                         ->with([
-                            'message'    => 'Location has been used by another session. Please choose another location',
+                            'message'    => $message,
                             'alert-type' => 'error',
                         ]);
                 }
-
             }
         }
 
