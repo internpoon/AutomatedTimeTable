@@ -14,7 +14,7 @@ class CreateSemesterColumnInSubjectsTable extends Migration
     public function up()
     {
         Schema::table('subjects', function ($table) {
-           $table->json('semester')->after('total_session');
+           $table->text('semester')->after('total_session')->nullable();
         });
     }
 

@@ -114,7 +114,7 @@
 
                                                          $data->{$row->field}->implode($options->relationship->label, ', ')
                                                     @elseif(property_exists($options, 'options'))
-                                                        @foreach($data->{$row->field} as $item)
+                                                        @foreach(json_decode($data->{$row->field}) as $item)
                                                             {{ $options->options->{$item} . (!$loop->last ? ', ' : '') }}
                                                         @endforeach
                                                     @endif
