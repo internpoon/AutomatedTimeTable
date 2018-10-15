@@ -102,20 +102,44 @@
                                                                 $query = $model::all();
                                                                 $editSub = \AutomatedTimeTable\Subject::where('id', $dataTypeContent->subject_id)->first();
                                                             @endphp
+                                                        @if($row->field == 'session_belongsto_subject_relationship')
                                                             <select class="form-control select2" name="{{ $options->column }}">
                                                                 @if($row->required === 0)
                                                                     <option value="">{{__('voyager::generic.none')}}</option>
                                                                 @endif
 
                                                                 {{--@if($dataTypeContent->id != null && $editSub->id != $relationshipData->id)--}}
-                                                                @if($dataTypeContent->id != null)
-                                                                    <option value="{{ $editSub->id }}"{{ 'selected="selected"' }}>{{ $editSub->name }}</option>
-                                                                @endif
+                                                                {{--@if($dataTypeContent->id != null)--}}
+{{--                                                                    <option value="{{ $editSub->id }}"{{ 'selected="selected"' }}>{{ $editSub->name }}</option>--}}
+                                                                {{--@endif--}}
 
                                                                 @foreach($subjects as $relationshipData)
+                                                                    <option value="{{ $relationshipData->id }}" @if($dataTypeContent->{$options->column} == $relationshipData->id){{ 'selected="selected"' }}@endif>{{ $relationshipData->name }}</option>
+                                                                @endforeach
+
+
+                                                            </select>
+                                                        @endif
+                                                        @if($row->field == 'session_belongsto_venue_relationship')
+                                                            <select class="form-control select2" name="{{ $options->column }}">
+                                                                @if($row->required === 0)
+                                                                    <option value="">{{__('voyager::generic.none')}}</option>
+                                                                @endif
+                                                                @foreach($venues as $relationshipData)
                                                                     <option value="{{ $relationshipData->id }}" @if($dataTypeContent->{$options->column} == $relationshipData->id){{ 'selected="selected"' }}@endif>{{ $relationshipData->{$options->label} }}</option>
                                                                 @endforeach
                                                             </select>
+                                                        @endif
+                                                            @if($row->field == 'session_belongsto_lecturer_relationship')
+                                                                <select class="form-control select2" name="{{ $options->column }}">
+                                                                    @if($row->required === 0)
+                                                                        <option value="">{{__('voyager::generic.none')}}</option>
+                                                                    @endif
+                                                                    @foreach($lecturers as $relationshipData)
+                                                                        <option value="{{ $relationshipData->id }}" @if($dataTypeContent->{$options->column} == $relationshipData->id){{ 'selected="selected"' }}@endif>{{ $relationshipData->{$options->label} }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            @endif
 
                                                         @endif
                                                     @endif
