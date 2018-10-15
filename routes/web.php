@@ -24,6 +24,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/changePassword', 'SettingController@changePassword');
 });
 
+Route::get('api/settings/get/{id}', 'SettingController@getSession');
+Route::get('api/settings', 'SettingController@get');
+Route::get('api/settings/subjects', 'SettingController@subjects');
+
 
 // Admin
 Route::group(['prefix' => 'admin'], function () {
