@@ -2,10 +2,6 @@
 
 namespace AutomatedTimeTable\Http\Controllers\Voyager;
 
-use AutomatedTimeTable\Lecturer;
-use AutomatedTimeTable\Session;
-use AutomatedTimeTable\Subject;
-use AutomatedTimeTable\Venue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use TCG\Voyager\Database\Schema\SchemaManager;
@@ -17,7 +13,7 @@ use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController;
 
-class SessionController extends VoyagerBaseController
+class VenueController extends VoyagerBaseController
 {
     use BreadRelationshipParser;
     //***************************************
@@ -174,32 +170,6 @@ class SessionController extends VoyagerBaseController
 
     public function edit(Request $request, $id)
     {
-//        $listSubjects = Subject::all();
-        $subjects = collect();
-        $venues = Venue::all();
-        $lecturers = Lecturer::all();
-
-        $listSubjects = DB::table('subjects')
-            ->select('id', 'name', 'total_session', DB::raw('count(*) as total'))
-            ->groupBy('id')
-            ->get();
-        $sessions = DB::table('sessions')
-            ->select('subject_id as id', DB::raw('count(*) as total'))
-            ->groupBy('id')
-            ->get();
-
-        foreach ($listSubjects as $subject) {
-            $subject->total = 0;
-            foreach ($sessions as $session) {
-                if ($subject->id == $session->id) {
-                    $subject->total = $session->total;
-                    break;
-                }
-            }
-            if ($subject->total < $subject->total_session)
-                $subjects->push($subject);
-        }
-
         $slug = $this->getSlug($request);
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
@@ -230,60 +200,13 @@ class SessionController extends VoyagerBaseController
             $view = "voyager::$slug.edit-add";
         }
 
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'subjects', 'venues', 'lecturers'));
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
     }
 
     // POST BR(E)AD
     public function update(Request $request, $id)
     {
         $slug = $this->getSlug($request);
-
-        $existVenues = Session::where('venue_id', $request->venue_id)
-            ->where('day', $request->day)
-            ->where('id', '!=', $id)
-            ->get();
-
-        if ($existVenues->count() > 0) {
-            $message = 'Location has been used by another session. Please choose another location';
-            foreach ($existVenues as $existVenue) {
-                $startTime = date('H:i', strtotime($existVenue->start_time));
-                $endTime =  date('H:i', strtotime($existVenue->end_time));
-
-                //Start Time between Exist venue duration is not allowed
-                if ($request->start_time >= $startTime && $request->start_time < $endTime) {
-                    if ($request->lecturer_id == $existVenue->lecturer_id) {
-                        $message = 'Lecturer is lecturing another session at the selected time, please choose another lecturer';
-                    }
-                    return redirect()->back()
-                        ->with([
-                            'message'    => $message,
-                            'alert-type' => 'error',
-                        ]);
-                }
-                //End time between exist venue duration is not allowed
-                else if ($request->end_time > $startTime && $request->end_time < $endTime) {
-                    if ($request->lecturer_id == $existVenue->lecturer_id) {
-                        $message = 'Lecturer is lecturing another session at the selected time, please choose another lecturer';
-                    }
-                    return redirect()->back()
-                        ->with([
-                            'message'    => $message,
-                            'alert-type' => 'error',
-                        ]);
-                }
-                //Start time cannot before any session start time and end time after any session end time
-                else if ($request->start_time < $startTime && $request->end_time > $endTime) {
-                    if ($request->lecturer_id == $existVenue->lecturer_id) {
-                        $message = 'Lecturer is lecturing another session at the selected time, please choose another lecturer';
-                    }
-                    return redirect()->back()
-                        ->with([
-                            'message'    => $message,
-                            'alert-type' => 'error',
-                        ]);
-                }
-            }
-        }
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
 
@@ -331,32 +254,6 @@ class SessionController extends VoyagerBaseController
 
     public function create(Request $request)
     {
-//        $listSubjects = Subject::all();
-        $subjects = collect();
-        $allSessions = Session::all();
-        $venues = Venue::all();
-        $lecturers = Lecturer::all();
-
-        $listSubjects = DB::table('subjects')
-            ->select('id', 'name', 'total_session', DB::raw('count(*) as total'))
-            ->groupBy('id')
-            ->get();
-        $sessions = DB::table('sessions')
-            ->select('subject_id as id', DB::raw('count(*) as total'))
-            ->groupBy('subject_id')
-            ->get();
-        foreach ($listSubjects as $subject) {
-            $subject->total = 0;
-            foreach ($sessions as $session) {
-                if ($subject->id == $session->id) {
-                    $subject->total = $session->total;
-                    break;
-                }
-            }
-            if ($subject->total < $subject->total_session)
-                $subjects->push($subject);
-        }
-
         $slug = $this->getSlug($request);
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
@@ -385,7 +282,7 @@ class SessionController extends VoyagerBaseController
             $view = "voyager::$slug.edit-add";
         }
 
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'subjects', 'venues', 'lecturers'));
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
     }
 
     /**
@@ -398,53 +295,6 @@ class SessionController extends VoyagerBaseController
     public function store(Request $request)
     {
         $slug = $this->getSlug($request);
-
-        $existVenues = Session::where('venue_id', $request->venue_id)
-            ->where('day', $request->day)
-            ->get();
-
-        if ($existVenues->count() > 0) {
-            $message = 'Location has been used by another session. Please choose another location';
-            foreach ($existVenues as $existVenue) {
-                $startTime = date('H:i', strtotime($existVenue->start_time));
-                $endTime =  date('H:i', strtotime($existVenue->end_time));
-
-                //Start Time between Exist venue duration is not allowed
-                if ($request->start_time >= $startTime && $request->start_time < $endTime) {
-                    if ($request->lecturer_id == $existVenue->lecturer_id) {
-                        $message = 'Lecturer is lecturing another session at the selected time, please choose another lecturer';
-                    }
-                    return redirect()->back()
-                        ->with([
-                            'message'    => $message,
-                            'alert-type' => 'error',
-                        ]);
-                }
-                //End time between exist venue duration is not allowed
-                else if ($request->end_time > $startTime && $request->end_time < $endTime) {
-                    if ($request->lecturer_id == $existVenue->lecturer_id) {
-                        $message = 'Lecturer is lecturing another session at the selected time, please choose another lecturer';
-                    }
-                    return redirect()->back()
-                        ->with([
-                            'message'    => $message,
-                            'alert-type' => 'error',
-                        ]);
-                }
-                //Start time cannot before any session start time and end time after any session end time
-                else if ($request->start_time < $startTime && $request->end_time > $endTime) {
-                    if ($request->lecturer_id == $existVenue->lecturer_id) {
-                        $message = 'Lecturer is lecturing another session at the selected time, please choose another lecturer';
-                    }
-                    return redirect()->back()
-                        ->with([
-                            'message'    => $message,
-                            'alert-type' => 'error',
-                        ]);
-                }
-            }
-        }
-
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
 
