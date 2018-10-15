@@ -1,7 +1,6 @@
 @extends('layouts.home')
+@section('page_name', 'Subject Enroll')
 
 @section('content')
-    @foreach($subjects as $subject)
-        <subject-enroll></subject-enroll>
-    @endforeach
+    <subject-enroll></subject-enroll>
 @endsection

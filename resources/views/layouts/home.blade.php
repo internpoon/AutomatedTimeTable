@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <p class="nav navbar-nav navbar-right" style="margin-top: 10px; font-size: 20px">Setting</p>
+                    <p class="nav navbar-nav navbar-right" style="margin-top: 10px; font-size: 20px">@yield('page_name')</p>
                 </div>
             </div>
         </nav>

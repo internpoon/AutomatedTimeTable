@@ -37,7 +37,22 @@ class SubjectController extends Controller
 
     public function getSession($id)
     {
-        $session = Session::where('subject_id', $id)->get();
-        return $session;
+        $response = collect();
+
+        $sessions = Session::where('subject_id', $id)->get();
+
+        foreach($sessions as $session) {
+            $data = collect();
+            $data->put('session_id', $session->id);
+            $data->put('start_time', $session->start_time);
+            $data->put('end_time', $session->end_time);
+            $data->put('day', $session->day);
+            $data->put('type', $session->type);
+            $data->put('subject_name', $session->subject->name);
+
+            $response->push($data);
+        }
+
+        return $response;
     }
 }
