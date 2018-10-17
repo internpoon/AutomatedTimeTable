@@ -47,7 +47,7 @@
                 </a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
                     <li><a href="{{route('student.subjects')}}">Subjects List</a></li>
-                    <li><a href="#">Enroll Subjects</a></li>
+                    <li><a href="{{route('student.subjectEnroll')}}">Enroll Subjects</a></li>
                     <li><a href="#">View Timetable</a></li>
                 </ul>
             </li>
@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <p class="nav navbar-nav navbar-right" style="margin-top: 10px; font-size: 20px">Setting</p>
+                    <p class="nav navbar-nav navbar-right" style="margin-top: 10px; font-size: 20px">@yield('page_name')</p>
                 </div>
             </div>
         </nav>
