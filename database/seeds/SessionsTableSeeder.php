@@ -4,6 +4,8 @@ use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 use AutomatedTimeTable\Subject;
 use AutomatedTimeTable\Session;
+use AutomatedTimeTable\Lecturer;
+use AutomatedTimeTable\Venue;
 
 class SessionsTableSeeder extends Seeder
 {
@@ -34,18 +36,17 @@ class SessionsTableSeeder extends Seeder
             1 => "Lecture",
             2 => "Practical",
         );
-        $venue = "Class A";
-        $lecturer = "Sir A";
-
+        $venue = Venue::all();
+        $lecturer = Lecturer::all();
         $subjects = Subject::all();
         foreach ($subjects as $subject) {
             for($i = 0; $i < $subject->total_session; $i++) {
                 $session = new Session();
                 $i == 0 || $i == 1 ? $session->type = "Lecture" : $session->type = "Practical";
                 $session->id = $subject->id . substr($session->type, 0, 1) . ($i+1);
-                $session->venue = $venue;
+                $session->venue_id = $venue[rand(0, $venue->count()-1)]->id;
                 $session->day = $day[rand(1,5)];
-                $session->lecturer = $lecturer;
+                $session->lecturer_id = $lecturer[rand(0, $lecturer->count()-1)]->id;
                 $session->subject_id = $subject->id;
                 $session->start_time = $time[rand(1,5)];
                 $session->end_time = date('H:i:s',strtotime($session->start_time) + 60*60*2);

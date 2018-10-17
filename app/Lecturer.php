@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lecturer extends Model
 {
+    protected $fillable = ['id', 'name'];
+
     public $incrementing = false;
 
     public function sessions()

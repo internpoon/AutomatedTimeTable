@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subject extends Model
 {
-    protected $fillable = ['id', 'name', 'total_session'];
+    protected $fillable = ['id', 'name', 'total_session', 'semester', 'semester'];
     //
     public $incrementing = false;
 
