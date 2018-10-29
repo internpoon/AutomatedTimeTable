@@ -42,7 +42,8 @@ class SessionsTableSeeder extends Seeder
         foreach ($subjects as $subject) {
             for($i = 0; $i < $subject->total_session; $i++) {
                 $session = new Session();
-                $i == 0 || $i == 1 ? $session->type = "Lecture" : $session->type = "Practical";
+                $i == 0  ? $session->type = "Lecture" : $session->type = "Practical";
+                $session->type == "Lecture" ? $session->capacity = rand(100,100) : $session->capacity = rand(20,25);
                 $session->id = $subject->id . substr($session->type, 0, 1) . ($i+1);
                 $session->venue_id = $venue[rand(0, $venue->count()-1)]->id;
                 $session->day = $day[rand(1,5)];

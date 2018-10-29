@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Session extends Model
 {
-    protected $fillable = ['id', 'start_time', 'end_time', 'day', 'type', 'venue_id', 'lecturer_id', 'subject_id'];
+    protected $fillable = ['id', 'start_time', 'end_time', 'day', 'type', 'capacity', 'venue_id', 'lecturer_id', 'subject_id'];
     //
     public $incrementing = false;
 
