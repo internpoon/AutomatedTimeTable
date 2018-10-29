@@ -12,6 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('custom_css')
+
 
 </head>
 <body>
@@ -37,10 +39,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#">
-                    <i class="glyphicon glyphicon-user"></i>
-                    Profile
-                </a>
+                <a href="{{route('student.profile')}}"><i class="glyphicon glyphicon-user"></i>Profile</a>
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
                     <i class="glyphicon glyphicon-book"></i>
                     Subjects
@@ -83,7 +82,7 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <p class="nav navbar-nav navbar-right" style="margin-top: 10px; font-size: 20px">Setting</p>
+                    <p class="nav navbar-nav navbar-right" style="margin-top: 10px; font-size: 20px">@yield('page_name')</p>
                 </div>
             </div>
         </nav>

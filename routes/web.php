@@ -22,6 +22,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/subjectsList', 'SubjectController@view')->name('student.subjects');
     Route::get('/subjectDetails/{id}', 'SubjectController@subjectDetail')->name('student.subjectDetails');
     Route::post('/changePassword', 'SettingController@changePassword');
+
+
+    Route::get('/profile', 'StudentProfileController@view')->name('student.profile');
 });
 
 

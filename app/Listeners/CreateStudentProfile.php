@@ -28,6 +28,6 @@ class CreateStudentProfile
     public function handle(Event $event)
     {
         $studentProfile = new StudentProfile();
-        $event->user->profiles()->save($studentProfile);
+        $event->user->profile()->save($studentProfile);
     }
 }
