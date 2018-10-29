@@ -1,12 +1,9 @@
 @extends('layouts.home')
+@section('page_name', 'Setting')
 
 @section('content')
     <form method="POST" action="{!! action('SettingController@changePassword') !!}">
         {{ csrf_field() }}
-        <div class="form-group">
-            <label for="fName">Name</label>
-            <input id="fName" class="form-control" name="fName" type="text" placeholder="{{$user->name}}">
-        </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input class="form-control" type="text" name="email" placeholder="{{$user->email}}" readonly>

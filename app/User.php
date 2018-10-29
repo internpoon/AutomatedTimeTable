@@ -27,7 +27,7 @@ class User extends \TCG\Voyager\Models\User
         'password', 'remember_token',
     ];
 
-    public function profiles()
+    public function profile()
     {
         return $this->hasOne(StudentProfile::class);
     }
