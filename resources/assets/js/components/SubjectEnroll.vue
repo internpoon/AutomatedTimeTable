@@ -1022,9 +1022,6 @@
                         this.selectedSessions.push(this.sessions[i]);
                     }
                 }
-                this.selectedSessions.filter(function (data) {
-                    return data.start_time.toTimeString() >= newData[0].start_time.toTimeString();
-                });
             }
         },
 

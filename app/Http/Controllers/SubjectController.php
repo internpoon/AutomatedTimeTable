@@ -32,7 +32,20 @@ class SubjectController extends Controller
 
     public function subjects()
     {
-        $subjects = Subject::all();
+        $user = \Auth::user();
+        $student = StudentProfile::where('user_id', $user->id)->first();
+        $enrolled = json_decode($student->enrolled_subs);
+
+        if (!$enrolled == null) {
+            $subjects = collect();
+            foreach($enrolled as $item) {
+                $subjects->push(Subject::where('id', $item)->first());
+            }
+        } else {
+            $subjects = Subject::all();
+        }
+
+
         return $subjects;
     }
 
@@ -43,11 +56,14 @@ class SubjectController extends Controller
         $response = collect();
 
         $sessions = Session::where('subject_id', $id)->get();
+        $enrolled = json_decode($student->enrolled_sessions);
 
-        foreach(json_decode($student->enrolled_sessions) as $enrolledSession) {
-            $sessions = $sessions->reject(function ($data) use ($enrolledSession) {
-                return $data->id === $enrolledSession;
-            });
+        if (!$enrolled == null) {
+            foreach(json_decode($student->enrolled_sessions) as $enrolledSession) {
+                $sessions = $sessions->reject(function ($data) use ($enrolledSession) {
+                    return $data->id === $enrolledSession;
+                });
+            }
         }
 
         foreach($sessions as $session) {
