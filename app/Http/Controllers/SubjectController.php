@@ -33,8 +33,7 @@ class SubjectController extends Controller
     public function subjects()
     {
         $user = \Auth::user();
-        $student = StudentProfile::where('user_id', $user->id)->first();
-        $enrolled = json_decode($student->enrolled_subs);
+        $enrolled = json_decode($user->profile->enrolled_subs);
 
         if (!$enrolled == null) {
             $subjects = collect();
@@ -42,9 +41,12 @@ class SubjectController extends Controller
                 $subjects->push(Subject::where('id', $item)->first());
             }
         } else {
-            $subjects = Subject::all();
+            $subjects = Subject::all()->filter(function($value) use ($user) {
+                if (in_array($user->profile->semester, json_decode($value->semester))) {
+                    return $value;
+                }
+            });
         }
-
 
         return $subjects;
     }
@@ -52,14 +54,13 @@ class SubjectController extends Controller
     public function getSession($id)
     {
         $user = \Auth::user();
-        $student = StudentProfile::where('user_id', $user->id)->first();
         $response = collect();
 
         $sessions = Session::where('subject_id', $id)->get();
-        $enrolled = json_decode($student->enrolled_sessions);
+        $enrolled = json_decode($user->profile->enrolled_sessions);
 
         if (!$enrolled == null) {
-            foreach(json_decode($student->enrolled_sessions) as $enrolledSession) {
+            foreach(json_decode($user->profile->enrolled_sessions) as $enrolledSession) {
                 $sessions = $sessions->reject(function ($data) use ($enrolledSession) {
                     return $data->id === $enrolledSession;
                 });
