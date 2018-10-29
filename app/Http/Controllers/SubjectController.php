@@ -32,15 +32,39 @@ class SubjectController extends Controller
 
     public function subjects()
     {
-        $subjects = Subject::all();
+        $user = \Auth::user();
+        $student = StudentProfile::where('user_id', $user->id)->first();
+        $enrolled = json_decode($student->enrolled_subs);
+
+        if (!$enrolled == null) {
+            $subjects = collect();
+            foreach($enrolled as $item) {
+                $subjects->push(Subject::where('id', $item)->first());
+            }
+        } else {
+            $subjects = Subject::all();
+        }
+
+
         return $subjects;
     }
 
     public function getSession($id)
     {
+        $user = \Auth::user();
+        $student = StudentProfile::where('user_id', $user->id)->first();
         $response = collect();
 
         $sessions = Session::where('subject_id', $id)->get();
+        $enrolled = json_decode($student->enrolled_sessions);
+
+        if (!$enrolled == null) {
+            foreach(json_decode($student->enrolled_sessions) as $enrolledSession) {
+                $sessions = $sessions->reject(function ($data) use ($enrolledSession) {
+                    return $data->id === $enrolledSession;
+                });
+            }
+        }
 
         foreach($sessions as $session) {
             $data = collect();
@@ -95,12 +119,12 @@ class SubjectController extends Controller
             $session = Session::where('subject_id', $subject['id'])->get();
 
             foreach($session as $data) {
-                if ($data->type == "Practical") {
+                if ($data->type == "Lecture") {
                     $selectedSessions->push($data);
                 }
             }
             $session = $session->reject(function($data) {
-                return $data->type == "Practical";
+                return $data->type == "Lecture";
             });
 
             $subjectSessions->put($subject['id'], $session);

@@ -3,7 +3,8 @@
         <label>Subject List (Maximum 5 subjects)</label>
 
         <div v-for="subject in subjects">
-            <input type="checkbox" v-model="selected" v-bind:value="subject">
+            <input type="checkbox" v-model="selected" v-bind:value="subject" v-if="selected.length === 5 && !selected.includes(subject)" disabled>
+            <input type="checkbox" v-model="selected" v-bind:value="subject" v-else >
             <label class="nice-label">{{subject.name}}</label>
         </div>
 
@@ -316,7 +317,7 @@
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-if="!session.disabled" v-model="selectedSessions" v-bind:value="session">
                     </td>
                     <td v-if="monday15.length === 0" class="no-bg" v-bind:colspan="mon15col">&nbsp;</td>
 
@@ -1008,10 +1009,17 @@
         },
 
         watch: {
-            selected: function (data) {
+            selected: _.debounce(function (data) {
                 if (data.length <= 5) {
                     for(let i = 0; i < data.length; i ++) {
                         this.getSessions(data[i].id);
+                    }
+                }
+            }, 2000),
+            selectedSessions: function (newData) {
+                for(let i = 0; i < this.sessions.length; i ++) {
+                    if(this.sessions[i].subject_id == newData[0].subject_id && this.sessions[i].type == newData[0].type && !this.selectedSessions.includes(this.sessions[i])){
+                        this.selectedSessions.push(this.sessions[i]);
                     }
                 }
             }
@@ -1026,6 +1034,7 @@
 
             getSessions(id) {
                 this.sessions = [];
+                this.selectedSessions = [];
                 axios.get('api/subjects/session/get/' + id).then((res) => {
                     for(let i = 0; i < res.data.length; i ++) {
                         this.sessions.push(res.data[i]);
