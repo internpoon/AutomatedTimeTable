@@ -31,6 +31,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::post('enroll/subjects', 'SubjectController@enroll');
     Route::post('enroll/auto', 'SubjectController@autoEnroll');
+
+    Route::get('/profile', 'StudentProfileController@view')->name('student.profile');
 });
 
 
