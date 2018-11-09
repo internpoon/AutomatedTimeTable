@@ -27,6 +27,8 @@ Route::group(['middleware' => ['auth']], function() {
 //Api
     Route::get('api/subjects/session/get/{id}', 'SubjectController@getSession');
     Route::get('api/subjects', 'SubjectController@subjects');
+
+    Route::get('/profile', 'StudentProfileController@view')->name('student.profile');
 });
 
 
