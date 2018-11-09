@@ -108,12 +108,15 @@
                                                                     <option value="">{{__('voyager::generic.none')}}</option>
                                                                 @endif
 
-                                                                {{--@if($dataTypeContent->id != null && $editSub->id != $relationshipData->id)--}}
-                                                                {{--@if($dataTypeContent->id != null)--}}
-{{--                                                                    <option value="{{ $editSub->id }}"{{ 'selected="selected"' }}>{{ $editSub->name }}</option>--}}
-                                                                {{--@endif--}}
+{{--                                                                @if($dataTypeContent->id != null && $editSub->id != $relationshipData->id)--}}
+                                                                @if($dataTypeContent->id != null)
+                                                                    <option value="{{ $editSub->id }}"{{ 'selected="selected"' }}>{{ $editSub->name }}</option>
+                                                                @endif
 
                                                                 @foreach($subjects as $relationshipData)
+                                                                    @if($dataTypeContent->id != null && $relationshipData->id == $editSub->id)
+                                                                        @continue
+                                                                    @endif
                                                                     <option value="{{ $relationshipData->id }}" @if($dataTypeContent->{$options->column} == $relationshipData->id){{ 'selected="selected"' }}@endif>{{ $relationshipData->name }}</option>
                                                                 @endforeach
 

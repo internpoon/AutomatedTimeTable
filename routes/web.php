@@ -21,8 +21,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/setting', 'SettingController@view')->name('student.setting');
     Route::get('/subjectsList', 'SubjectController@view')->name('student.subjects');
     Route::get('/subjectDetails/{id}', 'SubjectController@subjectDetail')->name('student.subjectDetails');
+    Route::get('/subjectEnroll', 'SubjectController@subjectEnroll')->name('student.subjectEnroll');
     Route::post('/changePassword', 'SettingController@changePassword');
 
+//Api
+    Route::get('api/subjects/session/get/{id}', 'SubjectController@getSession');
+    Route::get('api/subjects', 'SubjectController@subjects');
 
     Route::get('/profile', 'StudentProfileController@view')->name('student.profile');
 });
