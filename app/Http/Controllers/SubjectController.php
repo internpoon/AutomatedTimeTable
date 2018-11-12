@@ -4,6 +4,7 @@ namespace AutomatedTimeTable\Http\Controllers;
 
 use AutomatedTimeTable\Session;
 use AutomatedTimeTable\StudentProfile;
+use function foo\func;
 use Illuminate\Http\Request;
 use AutomatedTimeTable\Subject;
 
@@ -30,6 +31,45 @@ class SubjectController extends Controller
         return view('student.subjects.subjectEnroll', compact('subjects', 'sessions'));
     }
 
+    public function viewTimetable()
+    {
+        return view('student.subjects.timetableView');
+    }
+
+    public function enrolledSessions()
+    {
+        $user = \Auth::user();
+        $enrolledSessionsID = json_decode($user->profile->enrolled_sessions,true);
+        $enrolledSessions = Session::all()->filter(function($element) use ($enrolledSessionsID) {
+            if ($enrolledSessionsID != null) {
+                foreach ($enrolledSessionsID as $enrolledID) {
+                    if ($enrolledID == $element->id) {
+                        return $element;
+                    }
+                }
+            }
+        });
+        $sessions = collect();
+        foreach ($enrolledSessions as $session) {
+            $data = collect();
+            $data->put('session_id', $session->id);
+            $data->put('start_time', $session->start_time);
+            $data->put('end_time', $session->end_time);
+            $data->put('day', $session->day);
+            $data->put('type', $session->type);
+            $data->put('subject_name', $session->subject->name);
+            $data->put('subject_id', $session->subject->id);
+            $data->put('venue', $session->venue->location);
+            $data->put('lecturer', $session->lecturer->name);
+            $data->put('duration', (strtotime($session->end_time) - strtotime($session->start_time))/120/30);
+
+            $sessions->push($data);
+        }
+        return $sessions;
+    }
+
+
+
     public function subjects()
     {
         $user = \Auth::user();
@@ -49,6 +89,22 @@ class SubjectController extends Controller
         }
 
         return $subjects;
+    }
+
+    public function resetSubjects()
+    {
+        $user = \Auth::user();
+        $user->profile->enrolled_sessions = null;
+        $user->profile->enrolled_subs = null;
+        $user->profile->save();
+
+        $subjects = Subject::all()->filter(function($value) use ($user) {
+            if (in_array($user->profile->semester, json_decode($value->semester))) {
+                return $value;
+            }
+        });
+        return $subjects;
+
     }
 
     public function getSession($id)
@@ -188,5 +244,10 @@ class SubjectController extends Controller
         $student->save();
 
         return response()->json($enrolledSessions);
+    }
+
+    public function aEnroll(Request $request)
+    {
+        
     }
 }

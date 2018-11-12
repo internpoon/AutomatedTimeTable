@@ -7,486 +7,455 @@
             <input type="checkbox" v-model="selected" v-bind:value="subject" v-else >
             <label class="nice-label">{{subject.name}}</label>
         </div>
+        <br>
+        <button type="button" class="btn btn-danger" v-on:click="resetSubject">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+            Reset
+        </button>&nbsp; &nbsp;<small class="form-text text-muted">Clicking this button will reset your enrolled subjects !</small>
+        <br><br>
 
         <div v-if="selected.length > 0">
             <table border="1">
                 <tr class="row_grey">
-                    <th v-bind:colspan="maxMonday">Monday</th>
-                    <th v-bind:colspan="maxTuesday">Tuesday</th>
-                    <th v-bind:colspan="maxWednesday">Wednesday</th>
-                    <th v-bind:colspan="maxThursday">Thursday</th>
-                    <th v-bind:colspan="maxFriday">Friday</th>
+                    <th style="background-color: skyblue" v-bind:colspan="maxMonday">Monday</th>
+                    <th style="background-color: navajowhite" v-bind:colspan="maxTuesday">Tuesday</th>
+                    <th style="background-color: lightcoral" v-bind:colspan="maxWednesday">Wednesday</th>
+                    <th style="background-color: paleturquoise" v-bind:colspan="maxThursday">Thursday</th>
+                    <th style="background-color: aquamarine" v-bind:colspan="maxFriday">Friday</th>
                 </tr>
 
                 <tr class="data">
-                    <td v-for="session in monday8" v-bind:class="session.type" v-bind:colspan="mon8col">
+                    <td :id="session.session_id+'td'" v-for="session in monday8" v-bind:class="session.type" v-bind:colspan="mon8col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="monday8.length === 0" class="no-bg" v-bind:colspan="mon8col">&nbsp;</td>
 
-                    <td v-for="session in tuesday8" v-bind:class="session.type" v-bind:colspan="tue8col">
+                    <td :id="session.session_id+'td'" v-for="session in tuesday8" v-bind:class="session.type" v-bind:colspan="tue8col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="tuesday8.length === 0" class="no-bg" v-bind:colspan="tue8col">&nbsp;</td>
 
-                    <td v-for="session in wednesday8" v-bind:class="session.type" v-bind:colspan="wed8col">
+                    <td :id="session.session_id+'td'" v-for="session in wednesday8" v-bind:class="session.type" v-bind:colspan="wed8col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="wednesday8.length === 0" class="no-bg" v-bind:colspan="wed8col">&nbsp;</td>
 
-                    <td v-for="session in thursday8" v-bind:class="session.type" v-bind:colspan="thu8col">
+                    <td :id="session.session_id+'td'" v-for="session in thursday8" v-bind:class="session.type" v-bind:colspan="thu8col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="thursday8.length === 0" class="no-bg" v-bind:colspan="thu8col">&nbsp;</td>
 
-                    <td v-for="session in friday8" v-bind:class="session.type" v-bind:colspan="fri8col">
+                    <td :id="session.session_id+'td'" v-for="session in friday8" v-bind:class="session.type" v-bind:colspan="fri8col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="friday8.length === 0" class="no-bg" v-bind:colspan="fri8col">&nbsp;</td>
                 </tr>
 
                 <tr class="data">
-                    <td v-for="session in monday9" v-bind:class="session.type" v-bind:colspan="mon9col">
+                    <td :id="session.session_id+'td'" v-for="session in monday9" v-bind:class="session.type" v-bind:colspan="mon9col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="monday9.length === 0" class="no-bg" v-bind:colspan="mon9col">&nbsp;</td>
 
-                    <td v-for="session in tuesday9" v-bind:class="session.type" v-bind:colspan="tue9col">
+                    <td :id="session.session_id+'td'" v-for="session in tuesday9" v-bind:class="session.type" v-bind:colspan="tue9col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="tuesday9.length === 0" class="no-bg" v-bind:colspan="tue9col">&nbsp;</td>
 
-                    <td v-for="session in wednesday9" v-bind:class="session.type" v-bind:colspan="wed9col">
+                    <td :id="session.session_id+'td'" v-for="session in wednesday9" v-bind:class="session.type" v-bind:colspan="wed9col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="wednesday9.length === 0" class="no-bg" v-bind:colspan="wed9col">&nbsp;</td>
 
-                    <td v-for="session in thursday9" v-bind:class="session.type" v-bind:colspan="thu9col">
+                    <td :id="session.session_id+'td'" v-for="session in thursday9" v-bind:class="session.type" v-bind:colspan="thu9col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="thursday9.length === 0" class="no-bg" v-bind:colspan="thu9col">&nbsp;</td>
 
-                    <td v-for="session in friday9" v-bind:class="session.type" v-bind:colspan="fri9col">
+                    <td :id="session.session_id+'td'" v-for="session in friday9" v-bind:class="session.type" v-bind:colspan="fri9col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="friday9.length === 0" class="no-bg" v-bind:colspan="fri9col">&nbsp;</td>
                 </tr>
 
                 <tr class="data">
-                    <td v-for="session in monday10" v-bind:class="session.type" v-bind:colspan="mon10col">
+                    <td :id="session.session_id+'td'" v-for="session in monday10" v-bind:class="session.type" v-bind:colspan="mon10col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="monday10.length === 0" class="no-bg" v-bind:colspan="mon10col">&nbsp;</td>
 
-                    <td v-for="session in tuesday10" v-bind:class="session.type" v-bind:colspan="tue10col">
+                    <td :id="session.session_id+'td'" v-for="session in tuesday10" v-bind:class="session.type" v-bind:colspan="tue10col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="tuesday10.length === 0" class="no-bg" v-bind:colspan="tue10col">&nbsp;</td>
 
-                    <td v-for="session in wednesday10" v-bind:class="session.type" v-bind:colspan="wed10col">
+                    <td :id="session.session_id+'td'" v-for="session in wednesday10" v-bind:class="session.type" v-bind:colspan="wed10col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="wednesday10.length === 0" class="no-bg" v-bind:colspan="wed10col">&nbsp;</td>
 
-                    <td v-for="session in thursday10" v-bind:class="session.type" v-bind:colspan="thu10col">
+                    <td :id="session.session_id+'td'" v-for="session in thursday10" v-bind:class="session.type" v-bind:colspan="thu10col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="thursday10.length === 0" class="no-bg" v-bind:colspan="thu10col">&nbsp;</td>
 
-                    <td v-for="session in friday10" v-bind:class="session.type" v-bind:colspan="fri10col">
+                    <td :id="session.session_id+'td'" v-for="session in friday10" v-bind:class="session.type" v-bind:colspan="fri10col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="friday10.length === 0" class="no-bg" v-bind:colspan="fri10col">&nbsp;</td>
                 </tr>
 
                 <tr class="data">
-                    <td v-for="session in monday11" v-bind:class="session.type" v-bind:colspan="mon11col">
+                    <td :id="session.session_id+'td'" v-for="session in monday11" v-bind:class="session.type" v-bind:colspan="mon11col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="monday11.length === 0" class="no-bg" v-bind:colspan="mon11col">&nbsp;</td>
 
-                    <td v-for="session in tuesday11" v-bind:class="session.type" v-bind:colspan="tue11col">
+                    <td :id="session.session_id+'td'" v-for="session in tuesday11" v-bind:class="session.type" v-bind:colspan="tue11col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="tuesday11.length === 0" class="no-bg" v-bind:colspan="tue11col">&nbsp;</td>
 
-                    <td v-for="session in wednesday11" v-bind:class="session.type" v-bind:colspan="wed11col">
+                    <td :id="session.session_id+'td'" v-for="session in wednesday11" v-bind:class="session.type" v-bind:colspan="wed11col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="wednesday11.length === 0" class="no-bg" v-bind:colspan="wed11col">&nbsp;</td>
 
-                    <td v-for="session in thursday11" v-bind:class="session.type" v-bind:colspan="thu11col">
+                    <td :id="session.session_id+'td'" v-for="session in thursday11" v-bind:class="session.type" v-bind:colspan="thu11col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="thursday11.length === 0" class="no-bg" v-bind:colspan="thu11col">&nbsp;</td>
 
-                    <td v-for="session in friday11" v-bind:class="session.type" v-bind:colspan="fri11col">
+                    <td :id="session.session_id+'td'" v-for="session in friday11" v-bind:class="session.type" v-bind:colspan="fri11col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="friday11.length === 0" class="no-bg" v-bind:colspan="fri11col">&nbsp;</td>
                 </tr>
 
                 <tr class="data">
-                    <td v-for="session in monday12" v-bind:class="session.type" v-bind:colspan="mon12col">
+                    <td :id="session.session_id+'td'" v-for="session in monday12" v-bind:class="session.type" v-bind:colspan="mon12col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="monday12.length === 0" class="no-bg" v-bind:colspan="mon12col">&nbsp;</td>
 
-                    <td v-for="session in tuesday12" v-bind:class="session.type" v-bind:colspan="tue12col">
+                    <td :id="session.session_id+'td'" v-for="session in tuesday12" v-bind:class="session.type" v-bind:colspan="tue12col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="tuesday12.length === 0" class="no-bg" v-bind:colspan="tue12col">&nbsp;</td>
 
-                    <td v-for="session in wednesday12" v-bind:class="session.type" v-bind:colspan="wed12col">
+                    <td :id="session.session_id+'td'" v-for="session in wednesday12" v-bind:class="session.type" v-bind:colspan="wed12col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="wednesday12.length === 0" class="no-bg" v-bind:colspan="wed12col">&nbsp;</td>
 
-                    <td v-for="session in thursday12" v-bind:class="session.type" v-bind:colspan="thu11col">
+                    <td :id="session.session_id+'td'" v-for="session in thursday12" v-bind:class="session.type" v-bind:colspan="thu11col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="thursday12.length === 0" class="no-bg" v-bind:colspan="thu11col">&nbsp;</td>
 
-                    <td v-for="session in friday12" v-bind:class="session.type" v-bind:colspan="fri11col">
+                    <td :id="session.session_id+'td'" v-for="session in friday12" v-bind:class="session.type" v-bind:colspan="fri11col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="friday12.length === 0" class="no-bg" v-bind:colspan="fri11col">&nbsp;</td>
                 </tr>
 
                 <tr class="data">
-                    <td v-for="session in monday13" v-bind:class="session.type" v-bind:colspan="mon13col">
+                    <td :id="session.session_id+'td'" v-for="session in monday13" v-bind:class="session.type" v-bind:colspan="mon13col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="monday13.length === 0" class="no-bg" v-bind:colspan="mon13col">&nbsp;</td>
 
-                    <td v-for="session in tuesday13" v-bind:class="session.type" v-bind:colspan="tue13col">
+                    <td :id="session.session_id+'td'" v-for="session in tuesday13" v-bind:class="session.type" v-bind:colspan="tue13col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="tuesday13.length === 0" class="no-bg" v-bind:colspan="tue13col">&nbsp;</td>
 
-                    <td v-for="session in wednesday13" v-bind:class="session.type" v-bind:colspan="wed13col">
+                    <td :id="session.session_id+'td'" v-for="session in wednesday13" v-bind:class="session.type" v-bind:colspan="wed13col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="wednesday13.length === 0" class="no-bg" v-bind:colspan="wed13col">&nbsp;</td>
 
-                    <td v-for="session in thursday13" v-bind:class="session.type" v-bind:colspan="thu13col">
+                    <td :id="session.session_id+'td'" v-for="session in thursday13" v-bind:class="session.type" v-bind:colspan="thu13col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="thursday13.length === 0" class="no-bg" v-bind:colspan="thu13col">&nbsp;</td>
 
-                    <td v-for="session in friday13" v-bind:class="session.type" v-bind:colspan="fri13col">
+                    <td :id="session.session_id+'td'" v-for="session in friday13" v-bind:class="session.type" v-bind:colspan="fri13col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="friday13.length === 0" class="no-bg" v-bind:colspan="fri13col">&nbsp;</td>
                 </tr>
 
                 <tr class="data">
-                    <td v-for="session in monday14" v-bind:class="session.type" v-bind:colspan="mon14col">
+                    <td :id="session.session_id+'td'" v-for="session in monday14" v-bind:class="session.type" v-bind:colspan="mon14col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="monday14.length === 0" class="no-bg" v-bind:colspan="mon14col">&nbsp;</td>
 
-                    <td v-for="session in tuesday14" v-bind:class="session.type" v-bind:colspan="tue14col">
+                    <td :id="session.session_id+'td'" v-for="session in tuesday14" v-bind:class="session.type" v-bind:colspan="tue14col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="tuesday14.length === 0" class="no-bg" v-bind:colspan="tue14col">&nbsp;</td>
 
-                    <td v-for="session in wednesday14" v-bind:class="session.type" v-bind:colspan="wed14col">
+                    <td :id="session.session_id+'td'" v-for="session in wednesday14" v-bind:class="session.type" v-bind:colspan="wed14col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="wednesday14.length === 0" class="no-bg" v-bind:colspan="wed14col">&nbsp;</td>
 
-                    <td v-for="session in thursday14" v-bind:class="session.type" v-bind:colspan="thu14col">
+                    <td :id="session.session_id+'td'" v-for="session in thursday14" v-bind:class="session.type" v-bind:colspan="thu14col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="thursday14.length === 0" class="no-bg" v-bind:colspan="thu14col">&nbsp;</td>
 
-                    <td v-for="session in friday14" v-bind:class="session.type" v-bind:colspan="fri14col">
+                    <td :id="session.session_id+'td'" v-for="session in friday14" v-bind:class="session.type" v-bind:colspan="fri14col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="friday14.length === 0" class="no-bg" v-bind:colspan="fri14col">&nbsp;</td>
                 </tr>
 
                 <tr class="data">
-                    <td v-for="session in monday15" v-bind:class="session.type" v-bind:colspan="mon15col">
+                    <td :id="session.session_id+'td'" v-for="session in monday15" v-bind:class="session.type" v-bind:colspan="mon15col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-if="!session.disabled" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="monday15.length === 0" class="no-bg" v-bind:colspan="mon15col">&nbsp;</td>
 
-                    <td v-for="session in tuesday15" v-bind:class="session.type" v-bind:colspan="tue15col">
+                    <td :id="session.session_id+'td'" v-for="session in tuesday15" v-bind:class="session.type" v-bind:colspan="tue15col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="tuesday15.length === 0" class="no-bg" v-bind:colspan="tue15col">&nbsp;</td>
 
-                    <td v-for="session in wednesday15" v-bind:class="session.type" v-bind:colspan="wed15col">
+                    <td :id="session.session_id+'td'" v-for="session in wednesday15" v-bind:class="session.type" v-bind:colspan="wed15col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="wednesday15.length === 0" class="no-bg" v-bind:colspan="wed15col">&nbsp;</td>
 
-                    <td v-for="session in thursday15" v-bind:class="session.type" v-bind:colspan="thu15col">
+                    <td :id="session.session_id+'td'" v-for="session in thursday15" v-bind:class="session.type" v-bind:colspan="thu15col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="thursday15.length === 0" class="no-bg" v-bind:colspan="thu15col">&nbsp;</td>
 
-                    <td v-for="session in friday15" v-bind:class="session.type" v-bind:colspan="fri15col">
+                    <td :id="session.session_id+'td'" v-for="session in friday15" v-bind:class="session.type" v-bind:colspan="fri15col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="friday15.length === 0" class="no-bg" v-bind:colspan="fri15col">&nbsp;</td>
                 </tr>
 
                 <tr class="data">
-                    <td v-for="session in monday16" v-bind:class="session.type" v-bind:colspan="mon16col">
+                    <td :id="session.session_id+'td'" v-for="session in monday16" v-bind:class="session.type" v-bind:colspan="mon16col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="monday16.length === 0" class="no-bg" v-bind:colspan="mon16col">&nbsp;</td>
 
-                    <td v-for="session in tuesday16" v-bind:class="session.type" v-bind:colspan="tue16col">
+                    <td :id="session.session_id+'td'" v-for="session in tuesday16" v-bind:class="session.type" v-bind:colspan="tue16col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="tuesday16.length === 0" class="no-bg" v-bind:colspan="tue16col">&nbsp;</td>
 
-                    <td v-for="session in wednesday16" v-bind:class="session.type" v-bind:colspan="wed16col">
+                    <td :id="session.session_id+'td'" v-for="session in wednesday16" v-bind:class="session.type" v-bind:colspan="wed16col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="wednesday16.length === 0" class="no-bg" v-bind:colspan="wed16col">&nbsp;</td>
 
-                    <td v-for="session in thursday16" v-bind:class="session.type" v-bind:colspan="thu16col">
+                    <td :id="session.session_id+'td'" v-for="session in thursday16" v-bind:class="session.type" v-bind:colspan="thu16col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="thursday16.length === 0" class="no-bg" v-bind:colspan="thu16col">&nbsp;</td>
 
-                    <td v-for="session in friday16" v-bind:class="session.type" v-bind:colspan="fri16col">
+                    <td :id="session.session_id+'td'" v-for="session in friday16" v-bind:class="session.type" v-bind:colspan="fri16col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="friday16.length === 0" class="no-bg" v-bind:colspan="fri16col">&nbsp;</td>
                 </tr>
 
                 <tr class="data">
-                    <td v-for="session in monday17" v-bind:class="session.type" v-bind:colspan="mon17col">
+                    <td :id="session.session_id+'td'" v-for="session in monday17" v-bind:class="session.type" v-bind:colspan="mon17col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="monday17.length === 0" class="no-bg" v-bind:colspan="mon17col">&nbsp;</td>
 
-                    <td v-for="session in tuesday17" v-bind:class="session.type" v-bind:colspan="tue17col">
+                    <td :id="session.session_id+'td'" v-for="session in tuesday17" v-bind:class="session.type" v-bind:colspan="tue17col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="tuesday17.length === 0" class="no-bg" v-bind:colspan="tue17col">&nbsp;</td>
 
-                    <td v-for="session in wednesday17" v-bind:class="session.type" v-bind:colspan="wed17col">
+                    <td :id="session.session_id+'td'" v-for="session in wednesday17" v-bind:class="session.type" v-bind:colspan="wed17col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="wednesday17.length === 0" class="no-bg" v-bind:colspan="wed17col">&nbsp;</td>
 
-                    <td v-for="session in thursday17" v-bind:class="session.type" v-bind:colspan="thu17col">
+                    <td :id="session.session_id+'td'" v-for="session in thursday17" v-bind:class="session.type" v-bind:colspan="thu17col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="thursday17.length === 0" class="no-bg" v-bind:colspan="thu17col">&nbsp;</td>
 
-                    <td v-for="session in friday17" v-bind:class="session.type" v-bind:colspan="fri17col">
+                    <td :id="session.session_id+'td'" v-for="session in friday17" v-bind:class="session.type" v-bind:colspan="fri17col">
                         <h5>{{session.subject_name}}</h5>
                         <h5>{{session.type}}</h5>
                         <h5>{{session.start_time}} - {{session.end_time}}</h5>
-                        <input type="checkbox" v-model="selectedSessions" v-bind:value="session">
+                        <input type="checkbox" v-model="selectedSessions" @click="isDisabled($event, session)" v-bind:value="session">
                     </td>
                     <td v-if="friday17.length === 0" class="no-bg" v-bind:colspan="fri17col">&nbsp;</td>
                 </tr>
             </table>
-            <button v-on:click="enrollSubjects" class="btn">Submit Enrollment</button>
-            <button v-on:click="autoEnroll" class="btn btn-danger">Auto Enroll</button>
+            <br><br>
+            <button v-on:click="enrollSubjects" class="btn btn-primary">
+                <span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;
+                Submit Enrollment</button>&nbsp;
+            <small class="form-text text-muted">Or</small>&nbsp;
+            <button v-on:click="autoEnroll" class="btn btn-danger">
+                <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>&nbsp;Auto Enroll</button>
         </div>
     </div>
 </template>
 <style>
-    .Lecture {
-        background-color: rgb(215, 67, 64);
-    }
-    .Practical {
-        background-color: rgb(87, 109, 124);
-    }
-    .nice-label {
-        font-weight: 100;
-    }
-    table {
-        width: 100%;
-        overflow-x: auto;
-    }
-    th {
-        padding: 8px;
-        width: 20%;
-        text-align: center;
-        border: #fff 2px solid;
-    }
-    td {
-        padding: 8px;
-    }
-    .row_grey {
-        background-color: #F0F0F0 !important;
-        border: #fff 2px solid;
-    }
-    table {
-        overflow: auto;
-        display: block;
-        border: #fff 2px solid;
-    }
-    .data {
-        background-color: rgb(215, 67, 64);
-    }
-    .data h5 {
-        color: #fff;
-    }
-    input[type="checkbox"] {
-        width: 20px;
-    }
-    .no-bg {
-        background-color: #f5f5f5;
-    }
+
 </style>
 <script>
     export default {
@@ -1016,19 +985,20 @@
                     }
                 }
             }, 2000),
-            selectedSessions: function (newData) {
-                for(let i = 0; i < this.sessions.length; i ++) {
-                    if(this.sessions[i].subject_id == newData[0].subject_id && this.sessions[i].type == newData[0].type && !this.selectedSessions.includes(this.sessions[i])){
-                        this.selectedSessions.push(this.sessions[i]);
-                    }
-                }
-            }
         },
 
         methods: {
             fetchTaskList() {
                 axios.get('api/subjects').then((res) => {
                     this.subjects = res.data;
+                });
+            },
+            resetSubject() {
+                this.selected = [];
+                axios.get('api/resetSubjects').then((res) => {
+                    this.subjects = res.data;
+                }).then(function (response) {
+                    toastr.success("Reset Done !");
                 });
             },
 
@@ -1038,14 +1008,36 @@
                 axios.get('api/subjects/session/get/' + id).then((res) => {
                     for(let i = 0; i < res.data.length; i ++) {
                         this.sessions.push(res.data[i]);
+                        if (res.data[i].type == "Lecture") {
+                            this.selectedSessions.push(res.data[i]);
+                        }
                     }
+                    for (let i = 0; i < this.selectedSessions.length; i++) {
+                        this.sessions.forEach(function (element) {
+                            console.log(element.start_time);
+                            console.log(this.selectedSessions)
+                            console.log(this.selectedSessions[i].start_time);
+                            if (this.selectedSessions[i].start_time == element.start_time && element.session_id != this.selectedSessions.session_id) {
+                                var data = document.getElementById(element.session_id + "td");
+                                data.getElementsByTagName("input")[0].disabled = true;
+                                data.style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[0].style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[1].style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[2].style.opacity = 0.3;
+                            }
+                        })
+                    } 
                 });
             },
 
             enrollSubjects() {
                 axios.post('enroll/subjects', this.selectedSessions)
                     .then(function (response) {
-                        window.location.replace('/');
+                        window.location.replace('/profile');
+                    })
+                    .then(function (res) {
+                        toastr.options.extendedTimeOut = 2000;
+                        toastr.success("Enroll Success !");
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -1055,12 +1047,159 @@
             autoEnroll() {
                 axios.post('enroll/auto', this.selected)
                     .then(function (response) {
-                        window.location.replace('/');
+                        toastr.options.extendedTimeOut = 2000;
+                        toastr.success("Enroll Success !");
+                        window.location.replace('/profile');
                     })
                     .catch(function (error) {
                         console.log(error);
                     });
-            }
+            },
+
+            isDisabled(a, sesh) {
+                if (a.target.checked) {
+                    this.sessions.forEach(function (element) {
+                        if (sesh.type == "Practical" && element.subject_id == sesh.subject_id && element.type == "Practical") {
+                            if (element.start_time != sesh.start_time) {
+                                var data = document.getElementById(element.session_id + "td");
+                                data.getElementsByTagName("input")[0].disabled = true;
+                                data.style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[0].style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[1].style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[2].style.opacity = 0.3;
+                            }
+                        }
+                    });
+
+                    if (sesh.day == "Monday") {
+                        this.monday.forEach(function (element) {
+                            if (element.start_time == sesh.start_time && element.session_id != sesh.session_id) {
+                                var data = document.getElementById(element.session_id + "td");
+                                data.getElementsByTagName("input")[0].disabled = true;
+                                data.style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[0].style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[1].style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[2].style.opacity = 0.3;
+                            }
+                        });
+                    } else if (sesh.day == "Tuesday") {
+                        this.tuesday.forEach(function (element) {
+                            if (element.start_time == sesh.start_time && element.session_id != sesh.session_id) {
+                                var data = document.getElementById(element.session_id + "td");
+                                data.getElementsByTagName("input")[0].disabled = true;
+                                data.style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[0].style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[1].style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[2].style.opacity = 0.3;
+                            }
+                        });
+                    } else if (sesh.day == "Wednesday") {
+                        this.wednesday.forEach(function (element) {
+                            if (element.start_time == sesh.start_time && element.session_id != sesh.session_id) {
+                                var data = document.getElementById(element.session_id + "td");
+                                data.getElementsByTagName("input")[0].disabled = true;
+                                data.style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[0].style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[1].style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[2].style.opacity = 0.3;
+                            }
+                        });
+                    } else if (sesh.day == "Thursday") {
+                        this.thursday.forEach(function (element) {
+                            if (element.start_time == sesh.start_time && element.session_id != sesh.session_id) {
+                                var data = document.getElementById(element.session_id + "td");
+                                data.getElementsByTagName("input")[0].disabled = true;
+                                data.style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[0].style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[1].style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[2].style.opacity = 0.3;
+                            }
+                        });
+                    } else if (sesh.day == "Friday") {
+                        this.friday.forEach(function (element) {
+                            if (element.start_time == sesh.start_time && element.session_id != sesh.session_id) {
+                                var data = document.getElementById(element.session_id + "td");
+                                data.getElementsByTagName("input")[0].disabled = true;
+                                data.style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[0].style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[1].style.opacity = 0.3;
+                                data.getElementsByTagName("H5")[2].style.opacity = 0.3;
+                            }
+                        });
+                    }
+                }
+                else {
+                    this.sessions.forEach(function (element) {
+                        if (sesh.type == "Practical" && element.subject_id == sesh.subject_id && element.type == "Practical") {
+                            if (element.start_time != sesh.start_time) {
+                                var data = document.getElementById(element.session_id + "td");
+                                data.getElementsByTagName("input")[0].disabled = false;
+                                data.style.opacity = 1;
+                                data.getElementsByTagName("H5")[0].style.opacity = 1;
+                                data.getElementsByTagName("H5")[1].style.opacity = 1;
+                                data.getElementsByTagName("H5")[2].style.opacity = 1;
+                            }
+                        }
+                    });
+
+                    if (sesh.day == "Monday") {
+                        this.monday.forEach(function (element) {
+                            if (element.start_time == sesh.start_time && element.session_id != sesh.session_id) {
+                                var data = document.getElementById(element.session_id + "td");
+                                data.getElementsByTagName("input")[0].disabled = false;
+                                data.style.opacity = 1;
+                                data.getElementsByTagName("H5")[0].style.opacity = 1;
+                                data.getElementsByTagName("H5")[1].style.opacity = 1;
+                                data.getElementsByTagName("H5")[2].style.opacity = 1;
+                            }
+                        });
+                    } else if (sesh.day == "Tuesday") {
+                        this.tuesday.forEach(function (element) {
+                            if (element.start_time == sesh.start_time && element.session_id != sesh.session_id) {
+                                var data = document.getElementById(element.session_id + "td");
+                                data.getElementsByTagName("input")[0].disabled = false;
+                                data.style.opacity = 1;
+                                data.getElementsByTagName("H5")[0].style.opacity = 1;
+                                data.getElementsByTagName("H5")[1].style.opacity = 1;
+                                data.getElementsByTagName("H5")[2].style.opacity = 1;
+                            }
+                        });
+                    } else if (sesh.day == "Wednesday") {
+                        this.wednesday.forEach(function (element) {
+                            if (element.start_time == sesh.start_time && element.session_id != sesh.session_id) {
+                                var data = document.getElementById(element.session_id + "td");
+                                data.getElementsByTagName("input")[0].disabled = false;
+                                data.style.opacity = 1;
+                                data.getElementsByTagName("H5")[0].style.opacity = 1;
+                                data.getElementsByTagName("H5")[1].style.opacity = 1;
+                                data.getElementsByTagName("H5")[2].style.opacity = 1;
+                            }
+                        });
+                    } else if (sesh.day == "Thursday") {
+                        this.thursday.forEach(function (element) {
+                            if (element.start_time == sesh.start_time && element.session_id != sesh.session_id) {
+                                var data = document.getElementById(element.session_id + "td");
+                                data.getElementsByTagName("input")[0].disabled = false;
+                                data.style.opacity = 1;
+                                data.getElementsByTagName("H5")[0].style.opacity = 1;
+                                data.getElementsByTagName("H5")[1].style.opacity = 1;
+                                data.getElementsByTagName("H5")[2].style.opacity = 1;
+                            }
+                        });
+                    } else if (sesh.day == "Friday") {
+                        this.friday.forEach(function (element) {
+                            if (element.start_time == sesh.start_time && element.session_id != sesh.session_id) {
+                                var data = document.getElementById(element.session_id + "td");
+                                data.getElementsByTagName("input")[0].disabled = false;
+                                data.style.opacity = 1;
+                                data.getElementsByTagName("H5")[0].style.opacity = 1;
+                                data.getElementsByTagName("H5")[1].style.opacity = 1;
+                                data.getElementsByTagName("H5")[2].style.opacity = 1;
+                            }
+                        });
+                    }
+                }
+            },
         }
     }
 </script>

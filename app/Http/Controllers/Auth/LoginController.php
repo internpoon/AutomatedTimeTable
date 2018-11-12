@@ -29,7 +29,7 @@ class LoginController extends Controller
             return redirect('/admin');
         }
         else {
-            return \Redirect::action('HomeController@index');
+            return \Redirect::action('StudentProfileController@view');
         }
     }
     /**
@@ -37,7 +37,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/profile';
 
     /**
      * Create a new controller instance.

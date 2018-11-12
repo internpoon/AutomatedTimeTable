@@ -18,6 +18,7 @@ window.Vue = require('vue');
 import vSelect from 'vue-select'
 
 Vue.component('subject-enroll', require('./components/SubjectEnroll.vue'));
+Vue.component('view-timetable', require('./components/ViewTimetable.vue'));
 Vue.component('v-select', vSelect);
 Vue.use(require('vue-moment'));
 
