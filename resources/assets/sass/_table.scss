@@ -1,0 +1,51 @@
+.Lecture {
+  background-color: #008580 ;
+}
+.Practical {
+  background-color: rgb(87, 109, 124);
+}
+.nice-label {
+  font-weight: 100;
+}
+table {
+  width: 100%;
+  overflow-x: auto;
+}
+th {
+  padding: 8px;
+  width: 5%;
+  text-align: center;
+  border: #fff 2px solid;
+}
+td {
+  padding: 8px;
+}
+.row_grey {
+  background-color: #F0F0F0 !important;
+  border: #E8E8E8 2px solid;
+}
+table {
+  overflow: auto;
+  display: block;
+  border: #fff 2px solid;
+}
+.data {
+  border: #E8E8E8 2px solid;
+}
+.data h5 {
+  color: #fff;
+}
+input[type="checkbox"] {
+  width: 20px;
+}
+.no-bg {
+  //background-color: #f5f5f5;
+  border: 1px solid #f5f5f5;
+}
+.time {
+  text-align: center;
+  background-color: wheat;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+}

@@ -15,8 +15,13 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+import vSelect from 'vue-select'
+
+Vue.component('subject-enroll', require('./components/SubjectEnroll.vue'));
+Vue.component('view-timetable', require('./components/ViewTimetable.vue'));
+Vue.component('v-select', vSelect);
+Vue.use(require('vue-moment'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
 });

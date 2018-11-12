@@ -21,10 +21,20 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/setting', 'SettingController@view')->name('student.setting');
     Route::get('/subjectsList', 'SubjectController@view')->name('student.subjects');
     Route::get('/subjectDetails/{id}', 'SubjectController@subjectDetail')->name('student.subjectDetails');
+    Route::get('/subjectEnroll', 'SubjectController@subjectEnroll')->name('student.subjectEnroll');
+    Route::get('/viewTimetable', 'SubjectController@viewTimetable')->name('student.viewTimetable');
+    Route::get('/profile', 'StudentProfileController@view')->name('student.profile');
     Route::post('/changePassword', 'SettingController@changePassword');
 
+//Api
+    Route::get('api/subjects/session/get/{id}', 'SubjectController@getSession');
+    Route::get('api/subjects', 'SubjectController@subjects');
+    Route::get('api/resetSubjects', 'SubjectController@resetSubjects');
+    Route::get('api/enrolledSessions', 'SubjectController@enrolledSessions');
 
-    Route::get('/profile', 'StudentProfileController@view')->name('student.profile');
+
+    Route::post('enroll/subjects', 'SubjectController@enroll');
+    Route::post('enroll/auto', 'SubjectController@autoEnroll');
 });
 
 

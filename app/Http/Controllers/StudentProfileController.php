@@ -14,9 +14,11 @@ class StudentProfileController extends Controller
         $enrolledSubs = json_decode($user->profile->enrolled_subs);
 
         $subjects = Subject::all()->filter(function($value) use ($enrolledSubs) {
-            foreach ($enrolledSubs as $enrolledSub) {
-                if ($value->id == $enrolledSub) {
-                    return $value;
+            if ($enrolledSubs != null) {
+                foreach ($enrolledSubs as $enrolledSub) {
+                    if ($value->id == $enrolledSub) {
+                        return $value;
+                    }
                 }
             }
         });

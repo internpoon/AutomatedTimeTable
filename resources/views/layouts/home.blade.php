@@ -29,28 +29,21 @@
         </div>
 
         <ul class="list-unstyled components">
-            <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">
-                    <i class="glyphicon glyphicon-home"></i>
-                    Home
-                </a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li><a href="#">Home 1</a></li>
-                </ul>
-            </li>
-            <li>
+            <li class="{{ Request::segment(1) === 'profile' ? 'active' : null }}">
                 <a href="{{route('student.profile')}}"><i class="glyphicon glyphicon-user"></i>Profile</a>
+            </li>
+            <li class="{{ Request::segment(1) === 'subjectsList' || Request::segment(1) === 'subjectEnroll' ? 'active' : null }}">
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
                     <i class="glyphicon glyphicon-book"></i>
                     Subjects
                 </a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li><a href="{{route('student.subjects')}}">Subjects List</a></li>
-                    <li><a href="#">Enroll Subjects</a></li>
-                    <li><a href="#">View Timetable</a></li>
+                    <li class="{{ Request::segment(1) === 'subjectsList' ? 'active' : null }}"><a href="{{route('student.subjects')}}">Subjects List</a></li>
+                    <li class="{{ Request::segment(1) === 'subjectEnroll' ? 'active' : null }}"><a href="{{route('student.subjectEnroll')}}">Enroll Subjects</a></li>
+                    <li class="{{ Request::segment(1) === 'viewTimetable' ? 'active' : null }}"><a href="{{route('student.viewTimetable')}}">View Timetable</a></li>
                 </ul>
             </li>
-            <li>
+            <li class="{{ Request::segment(1) === 'setting' ? 'active' : null}}">
                 <a href="{{route('student.setting')}}">
                     <i class="glyphicon glyphicon-wrench"></i>
                     Setting
